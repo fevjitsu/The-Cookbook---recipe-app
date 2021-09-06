@@ -3,20 +3,20 @@ import database from "../../db/firebase";
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
-    searchedItems: [],
+    searchTerm: [],
     selected: {},
     results: [],
     collection: [],
   },
   reducers: {
     resetValue: (state) => {
-      state.searchedItems = [];
+      state.searchTerm = [];
       state.selected = {};
       state.results = [];
     },
 
     setSearchedItem: (state, action) => {
-      state.searchedItems = action.payload;
+      state.searchTerm = action.payload;
     },
     setResults: (state, action) => {
       state.results = action.payload;
@@ -42,7 +42,6 @@ export const setCollectionAsync = (target) => (dispatch) => {
     .once("value")
     .then((snapshot) => {
       const db = [];
-      // const db = snapshot.val();
       snapshot.forEach(function (item) {
         db.push({ id: item.key, ...item.val() });
       });
